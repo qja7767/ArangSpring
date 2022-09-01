@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
   <link rel="stylesheet" type="text/css" href="/fake_resources/css/swiper/swiper.css"/>
   <script type="text/javascript" src="/fake_resources/js/jquery.js"></script>
-  
 </head>
 
 <body>
@@ -60,7 +59,6 @@
               	</div>
               </div>
   			</c:forEach>
-             
             </div>
           </div>
           <!-- 아티스트 -->
@@ -130,9 +128,6 @@
          </c:choose>
       </ul>
    </div>
-   
-              
-              
               <!-- ===================== 페이징 처리 부분 ========================== -->
             </div>
           </div>

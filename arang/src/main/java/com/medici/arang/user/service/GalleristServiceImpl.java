@@ -22,11 +22,11 @@ public class GalleristServiceImpl implements GalleristService{
 	public boolean isValidUser(String email, String passwd) {
 		return galleristDao.isValidUser(email, passwd);
 	}
-	@Override
+	
 	public GalleristCommend findMyGallerist(String email) {
 		return galleristDao.findMyGallerist(email);
 	}
-	@Override
+	
 	public void updateGalleristByEmail(GalleristCommend gallerist) {
 		galleristDao.updateGalleristByEmail(gallerist);
 	}

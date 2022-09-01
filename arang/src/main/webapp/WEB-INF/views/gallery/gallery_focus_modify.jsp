@@ -15,6 +15,7 @@
   <link rel="stylesheet" type="text/css" href="/fake_resources/css/default/default.css"/>
   <link rel="stylesheet" type="text/css" href="/fake_resources/css/artist/artist_focus.css">
   <link rel="stylesheet" type="text/css" href="/fake_resources/css/gallery/gallery_focus.css">
+  <script type="text/javascript" src="/fake_resources/js/jquery.js"></script>
 </head>
 
 <body>
@@ -39,24 +40,30 @@
     </div>
 
     <!-- 갤러리상세페이지 -->
+    <form action="gallery_upload" method="post" enctype="multipart/form-data">
+    </form>
     <div id="artist">
       <div id="artist_detail">
         <div class="container">
           <div class="detail_wrapper d-flex">
             <div class="side_block">
-              <div class="artist_info">
-                <h3>${galleryCommand.galleryName_kor}</h3>
-                <p class="e_name">${galleryCommand.galleryName_eng}</p>
-                <p class="born">${galleryCommand.since}</p>
+              <div class="artist_info"> 
+                <h3><input type="text" name="galleryName_kor" value="${galleryCommand.galleryName_kor}"></h3>
+                <p class="e_name"><input type="text" name="galleryName_eng" value="${galleryCommand.galleryName_eng}"></p>
+                <p class="born"><input type="text" name="since" value="${galleryCommand.since}"></p>
                 <div class="artist_avatar">
-                  <img src="${galleryCommand.galleryImgPath}" alt="2">
+                  <form action="/gallery/gallery_focus_modify" method="post" enctype="multipart/form-data">
+                        <img id="changeImg" src="${galleryCommand.galleryImgPath}" class="click">
+                        <input id="uploadFile" type="file" name="uploadFile" style="display: none;" onchange="imgchange(this)">
+                        <button id="uploadBtn" style="display: none;"></button>
+                      </form>
                 </div>
               </div>
             </div>
             <div class="content_block">
               <div class="review">
-                <h2>${galleryCommand.galleryName_eng}</h2>
-                <p>${galleryCommand.description}</p>
+                <h2><input type="text" name="galleryName_eng" value="${galleryCommand.galleryName_eng}" style="height: 40px;"></h2>
+                <p><textarea id="editor" class="textarea_box" placeholder="갤러리 소개" cols="43" rows="7" name="description">${galleryCommand.description}</textarea></p>
                 <p><br></p>
                 <p>
                 <c:forTokens var="infoImg" items="${galleryCommand.infoImgPath}" delims=";">
@@ -74,46 +81,38 @@
                           <div class="info_block">
                             <div class="first">주소(Address)</div>
                             <div class="last">
-                              ${galleryCommand.address}
+                              <input type="text" name="address" value="${galleryCommand.address}" style="width: 300px; height: 40px;">
                             </div>
                           </div>
                           <div class="info_block">
-                            <div class="first">크기(Size)</div>
+                            <div class="first" style="">크기(Size)</div>
                             <div class="last">
-                              ${galleryCommand.area}
+                              <input type="text" name="area" value="${galleryCommand.area}" style="width: 300px; height: 40px;">
                             </div>
                           </div>
                           <div class="info_block">
                             <div class="first">시간(Hours)</div>
                             <div class="last">
-                              ${galleryCommand.openClose}
+                              <input type="text" name="openClose" value="${galleryCommand.openClose}" style="width: 300px; height: 40px;">
                             </div>
                           </div>
                           <div class="info_block">
                             <div class="first">이메일(Email)</div>
-                            <div class="last">${galleryCommand.galleryEmail}</div>
+                            <div class="last"><input type="text" name="galleryEmail" value="${galleryCommand.galleryEmail}" style="width: 300px; height: 40px;"></div>
                           </div>
                           <div class="info_block">
                             <div class="first">전화번호(Phone)</div>
-                            <div class="last">${galleryCommand.galleryPhone}</div>
+                            <div class="last"><input type="text" name="galleryPhone" value="${galleryCommand.galleryPhone}" style="width: 300px; height: 40px;"></div>
                           </div>
                         </div>
                       </div>
-                      <div class="button_wrap">
+                      <div class="button_wrap" style="position: relative;">
                         <div class="btn_group">
                         <form action="gallery_focus" method="post">
-                          <a href="#"><button class="btn1" type="submit">Contacting</button></a>
+                          <a href="#"><button class="btn1" type="submit">수정완료</button></a>
                           <input type="hidden" name="galleryCode" value="${galleryCommand.code}" />
-                        </form>                      
-                          <button class="like likeButton" value="${galleryCommand.code}">
-                      <c:if test="${likeNum == 4}">
-                      <img class="like_img" src="/fake_resources/img/icon/like_2.png" alt="like">
-						</c:if>
-						<c:if test="${likeNum != 4}">
-                      <img class="like_img" src="/fake_resources/img/icon/like.png" alt="like">
-						</c:if>
-                      </button>
-                          <p>76</p>
+                        </form>
+                          <a href="#"><button class="btn1" type="submit">삭제</button></a>
                         </div>
                       </div>
                     </div>
@@ -144,42 +143,64 @@
 
     </div>
   </div>
+  <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
   <script>
-	$(".likeButton").click(function() {
-		//해당 Value값 가져와서 할당
-		let userId = '<c:out value="${email}"/>';
-		let targetValue = $(this).attr('value');
-		console.log(userId);
-		console.log(targetValue);
-		$.ajax({
-			type :'post',
-			url : '<c:url value ="/likeUp"/>',
-			contentType: 'application/json',
-			data : JSON.stringify(
-					{
-						"userId" : userId,
-						"targetValue" : targetValue,
-						"likeNum" : 1
-					}
-				),
-			context: this, 
-			success : function(data) {
-				alert(data.msg);
-				let likeCheck = data.likeCheck;
-				if(likeCheck == 1){
-					$(this).children("img").attr('src','../resources/img/icon/like_2.png');
-					console.log($(this));
-				}else{
-					$(this).children("img").attr('src','../resources/img/icon/like.png');
-					console.log($(this));
-				}
-			},
-			error : function(error) {
-				alert(error);
-			}
-		})
+  $('#uploadBtn').click(function(event) {
+	   console.log(this.innerText);
+	   let clickCategory = this.innerText;
+	   $.ajax({
+	       type:"post",
+	       url : '/gallery/gallery_focus_modify',
+	       contentType: false,
+	       dataType: "file",
+	       data : JSON.stringify(
+	             {
+	             <!-- 보내지는 데이터 영역 -->
+	             "categoryValue" : clickCategory
+	             }
+	             ),
+	       success: function(data){
+	          if(data == "error"){
+	                alert("데이터 전송 실패!!");
+	          }else{                 
+	             console.log("데이터 전송 성공!!");
+	             console.log(data);
+	             alert(data);
+	             }
+	          }
+	   })
+	});
 
-	});//like
+	let click = document.querySelector(".click");
+	let clickTarget = document.querySelector("#uploadFile");
+	let btnTarget = document.querySelector("#uploadBtn");
+	click.addEventListener("click", function() {
+	   alert("이미지를 선택해주세요.");
+	   clickTarget.click();
+	});
+
+	function imgchange(e) {
+	   btnTarget.click();
+	}
+	
+	cnt = 0;
+	const add_textbox = () => {
+		if ( cnt < 2 ) {
+			const box = document.getElementById("box2");
+			const newP = document.createElement('tr');
+			newP.innerHTML = "<div class='upload_box'> <input type='file' id='input-file' name='imgName2' multiple>"
+			+ "</div> <br> <input type='button' value='삭제' onclick='remove(this)'>";
+			box.appendChild(newP);
+			cnt++;
+		}
+	}
+	const remove = (obj) => {
+	    document.getElementById('box2').removeChild(obj.parentNode);
+	    cnt--;
+	}
+	ClassicEditor.create( document.querySelector( '#editor' ) );
+	
+	
   </script>
 </body>
 

@@ -20,7 +20,7 @@ public class ArtistServiceImpl implements ArtistService {
 	public void addArtist(ArtistCommand artistCommand) {
 		artistDao.addArtist(artistCommand);
 	}
-	@Override
+	
 	public boolean isValidUser(String email, String passwd) {
 		return artistDao.isValidUser(email, passwd);
 	}
@@ -34,7 +34,7 @@ public class ArtistServiceImpl implements ArtistService {
 	public ArtistCommand getArtistByEmail(String email) {
 		return artistDao.getArtistByEmail(email);
 	}
-	@Override
+	
 	public List<ArtistPageCommand> findAllArtistkByEmail() {
 		return artistDao.findAllArtistkByEmail();
 	}
@@ -43,23 +43,22 @@ public class ArtistServiceImpl implements ArtistService {
 	public Page<ArtistPageCommand> findAllPage(Pageable pageable) {
 		return artistDao.findAllPage(pageable);
 	}
-	@Override
+	
 	public Page<ArtistPageCommand> findPageByGenre(Pageable pageable, String ctg){
 		return artistDao.findPageByGenre(pageable, ctg);
 	}
-	@Override
+	
 	public List<ArtistPageCommand> findAllArtistkByGenre(String ctg) {
 		return artistDao.findAllArtistkByGenre(ctg);
 	}
-	@Override
+	
 	public void updateArtist(ArtistCommand artist) {
 		artistDao.updateArtist(artist);
 	}
-	@Override
+	
 	public ArtistPageCommand findArtistkById(long id) {
 		return artistDao.findArtistkById(id);
 	}
-	@Override
 	public Page<ArtistPageCommand> findAllPageByGenre(Pageable pageable, String genre) {
 		return artistDao.findAllPageByGenre(pageable, genre);
 	}

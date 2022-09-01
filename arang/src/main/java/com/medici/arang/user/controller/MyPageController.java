@@ -63,9 +63,6 @@ public class MyPageController {
 	@Autowired
 	GalleryInfoServiceImpl galleryInfoService;
 	
-	private static final String SAVE_DIR = "C:\\JavaYoung\\JavaStudy\\eclipse-workspace\\arang\\src\\main\\webapp\\resources\\img\\";
-	private static final String PATH_DIR = "/upload_img/";
-	
 	@GetMapping("/mypage/wish_list")
 	public String myWishListPage(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -148,7 +145,6 @@ public class MyPageController {
 	            contactService.findGalleryContacting(artist.getAid());
 	      request.setAttribute("contactingList", contactingList);		
 		
-	     
 		return "mypage/mypage_artist";
 	}
 	
@@ -194,142 +190,76 @@ public class MyPageController {
 	}
 	
 	
-	
-	@PostMapping("/mypage/uploadAjaxAction2")
-	public String uploadAjaxPost2(@RequestParam("uploadFile") MultipartFile uploadFile, 
-                        HttpServletRequest request) {
-      HttpSession session = request.getSession();
-      String email = (String)session.getAttribute("email");
-      ArtistCommand artist = artistService.getArtistByEmail(email);
-      
-      
-      // 주민번호 처리코드
-      String ssn = artist.getSsn();
-      String testone = ssn.substring(0, 8);
-      System.out.println(testone);
-      testone += "******";
-      System.out.println(testone);
-      request.setAttribute("ssn", testone);
-      
-      
-      String fileRealName = uploadFile.getOriginalFilename(); //파일명을 얻어낼 수 있는 메서드
-      long size = uploadFile.getSize(); //파일 사이즈
-      
-      System.out.println("파일명 : "  + fileRealName);
-      System.out.println("용량크기(byte) : " + size);
-      
-      String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
-      
-      UUID uuid = UUID.randomUUID();
-      System.out.println(uuid.toString());
-      String[] uuids = uuid.toString().split("-");
-      
-      String uniqueName = uuids[0];
-      System.out.println("생성된 고유문자열" + uniqueName);
-      System.out.println("확장자명" + fileExtension);
-      String forderName = artist.getName_eng();
-      
-      String path = SAVE_DIR + "gallerist\\" + forderName; //폴더 경로
-      File Folder = new File(path);
-      
-      System.out.println(path);
-      if (!Folder.exists()) {
-         try{
-             Folder.mkdir(); //폴더 생성합니다. ("새폴더"만 생성)
-             System.out.println("폴더가 생성완료.");
-              } 
-              catch(Exception e){
-             e.getStackTrace();
-         }        
-            }else {
-         System.out.println("폴더가 이미 존재합니다..");
-      }
-      
-      File saveFile = new File(SAVE_DIR + "gallerist/" + forderName + "/" + uniqueName + fileExtension);  // 적용 후
-      try {
-         uploadFile.transferTo(saveFile); // 실제 파일 저장메서드
-      } catch (IllegalStateException e) {
-         e.printStackTrace();
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
-      
-      artist.setImgPath(PATH_DIR + "gallerist/" + forderName + "/" + uniqueName+fileExtension);
-      artistService.updateArtist(artist);
-      request.setAttribute("artist", artist);
-      
-      return "/mypage/mypage_artist_modify";
-   }
-	
-	
-	
+	private static final String SAVE_DIR = "C:\\PSH\\my-workSpace\\arang\\src\\main\\webapp\\resources\\img\\";
+	private static final String PATH_DIR = "/upload_img/";
 	
 	
 	@PostMapping("/mypage/uploadAjaxAction")
-	public String uploadAjaxPost(@RequestParam("uploadFile") MultipartFile uploadFile, 
-                        HttpServletRequest request) {
-      HttpSession session = request.getSession();
-      String email = (String)session.getAttribute("email");
-      GalleristCommend gallerist = galleristService.findMyGallerist(email);
-      
-      
-      // 주민번호 처리코드
-      String ssn = gallerist.getSsn();
-      String testone = ssn.substring(0, 8);
-      System.out.println(testone);
-      testone += "******";
-      System.out.println(testone);
-      request.setAttribute("ssn", testone);
-      
-      
-      String fileRealName = uploadFile.getOriginalFilename(); //파일명을 얻어낼 수 있는 메서드
-      long size = uploadFile.getSize(); //파일 사이즈
-      
-      System.out.println("파일명 : "  + fileRealName);
-      System.out.println("용량크기(byte) : " + size);
-      
-      String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
-      
-      UUID uuid = UUID.randomUUID();
-      System.out.println(uuid.toString());
-      String[] uuids = uuid.toString().split("-");
-      
-      String uniqueName = uuids[0];
-      System.out.println("생성된 고유문자열" + uniqueName);
-      System.out.println("확장자명" + fileExtension);
-      String forderName = gallerist.getName();
-      
-      String path = SAVE_DIR + "gallerist\\" + forderName; //폴더 경로
-      File Folder = new File(path);
-      
-      System.out.println(path);
-      if (!Folder.exists()) {
-         try{
-             Folder.mkdir(); //폴더 생성합니다. ("새폴더"만 생성)
-             System.out.println("폴더가 생성완료.");
-              } 
-              catch(Exception e){
-             e.getStackTrace();
-         }        
-            }else {
-         System.out.println("폴더가 이미 존재합니다..");
-      }
-      
-      File saveFile = new File(SAVE_DIR + "gallerist/" + forderName + "/" + uniqueName + fileExtension);  // 적용 후
-      try {
-         uploadFile.transferTo(saveFile); // 실제 파일 저장메서드
-      } catch (IllegalStateException e) {
-         e.printStackTrace();
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
-      
-      gallerist.setImgPath(PATH_DIR + "gallerist/" + forderName + "/" + uniqueName+fileExtension);
-      galleristService.updateGalleristByEmail(gallerist);
-      request.setAttribute("gallerist", gallerist);
-      
-      return "/mypage/mypage_gallerist_modify";
-   }
+	   public String uploadAjaxPost(@RequestParam("uploadFile") MultipartFile uploadFile, 
+	                        HttpServletRequest request) {
+	      HttpSession session = request.getSession();
+	      String email = (String)session.getAttribute("email");
+	      GalleristCommend gallerist = galleristService.findMyGallerist(email);
+	      
+	      
+	      // 주민번호 처리코드
+	      String ssn = gallerist.getSsn();
+	      String testone = ssn.substring(0, 8);
+	      System.out.println(testone);
+	      testone += "******";
+	      System.out.println(testone);
+	      request.setAttribute("ssn", testone);
+	      
+	      
+	      String fileRealName = uploadFile.getOriginalFilename(); //파일명을 얻어낼 수 있는 메서드
+	      long size = uploadFile.getSize(); //파일 사이즈
+	      
+	      System.out.println("파일명 : "  + fileRealName);
+	      System.out.println("용량크기(byte) : " + size);
+	      
+	      String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+	      
+	      UUID uuid = UUID.randomUUID();
+	      System.out.println(uuid.toString());
+	      String[] uuids = uuid.toString().split("-");
+	      
+	      String uniqueName = uuids[0];
+	      System.out.println("생성된 고유문자열" + uniqueName);
+	      System.out.println("확장자명" + fileExtension);
+	      String forderName = gallerist.getName();
+	      
+	      String path = SAVE_DIR + "gallerist\\" + forderName; //폴더 경로
+	      File Folder = new File(path);
+	      
+	      System.out.println(path);
+	      if (!Folder.exists()) {
+	         try{
+	             Folder.mkdir(); //폴더 생성합니다. ("새폴더"만 생성)
+	             System.out.println("폴더가 생성완료.");
+	              } 
+	              catch(Exception e){
+	             e.getStackTrace();
+	         }        
+	            }else {
+	         System.out.println("폴더가 이미 존재합니다..");
+	      }
+	      
+	      File saveFile = new File(SAVE_DIR + "gallerist/" + forderName + "/" + uniqueName + fileExtension);  // 적용 후
+	      try {
+	         uploadFile.transferTo(saveFile); // 실제 파일 저장메서드
+	      } catch (IllegalStateException e) {
+	         e.printStackTrace();
+	      } catch (IOException e) {
+	         e.printStackTrace();
+	      }
+	      
+	      gallerist.setImgPath(PATH_DIR + "gallerist/" + forderName + "/" + uniqueName+fileExtension);
+	      galleristService.updateGalleristByEmail(gallerist);
+	      request.setAttribute("gallerist", gallerist);
+	      
+	      return "/mypage/mypage_gallerist_modify";
+	   }
+	
 	
 	@PostMapping("/mypage/mypage_gallerist_modify")
 	   public String galleristmypageUpdate(GalleristCommend inputGallerist,

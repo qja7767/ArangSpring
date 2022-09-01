@@ -14,6 +14,7 @@ public interface LikeService {
 	void likeUp(LikeVo likeVo);
 	void likeDown(String userId, String targetValue);
 	LikeVo findLike(String userId, String targetValue);
+	LikeVo findLike(String userId, long targerValue);
 	List<LikeVo> findLike();
 	List<LikeVo> findLike(String userId);
 	LikeVo findLikeByTargetId(long targetValue);
@@ -21,5 +22,4 @@ public interface LikeService {
 	List<ArtworkCommand> findArtworkJoinLike(String email);
 	List<GalleryPageCommand> findGalleryJoinLike(String email);
 	long getLikeArtistCount(String email);
-	LikeVo findLike(String userId, long targetValue);
 }

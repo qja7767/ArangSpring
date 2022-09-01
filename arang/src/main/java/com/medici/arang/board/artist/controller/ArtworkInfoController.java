@@ -72,7 +72,7 @@ public class ArtworkInfoController {
 		model.addAttribute("artistInfo", artistInfo);
 		model.addAttribute("artworkList", artworkList);
 		model.addAttribute("artworkInfo", artworkInfo);
-		
+	//	artistId
 		return "artwork_board/artwork_info";
 	}
 	
@@ -90,6 +90,8 @@ public class ArtworkInfoController {
 		contactcommend.setGalleryCode(gallery.getCode());
 		long id = Long.parseLong(request.getParameter("artistId"));
 		contactcommend.setArtistId(id);
+		System.out.println("테스트 아티스트 id = " + contactcommend.getArtistId());
+		System.out.println("테스트 갤러리 code = " + contactcommend.getGalleryCode());
 		session.setAttribute("contact", contactcommend);
 		
 		return "artwork_board/contact_artist";
@@ -104,6 +106,10 @@ public class ArtworkInfoController {
 		contactCommand.setArtistId(getCon.getArtistId());
 		contactCommand.setGalleryCode(getCon.getGalleryCode());
 		contactCommand.setSendingType("G");
+		System.out.println(contactCommand.getExhibitionTitle());
+		System.out.println(contactCommand.getComment());
+		System.out.println(contactCommand.getStartDate());
+		System.out.println(contactCommand.getEndDate());
 		
 		contactService.contactArtist(contactCommand);
 		

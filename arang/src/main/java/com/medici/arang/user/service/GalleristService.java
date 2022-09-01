@@ -11,6 +11,4 @@ import com.medici.arang.user.domain.GalleristVo;
 public interface GalleristService {
 	public void insertGallerist(GalleristCommend commend);
 	public boolean isValidUser(String email, String passwd);
-	GalleristCommend findMyGallerist(String email);
-	void updateGalleristByEmail(GalleristCommend gallerist);
 }

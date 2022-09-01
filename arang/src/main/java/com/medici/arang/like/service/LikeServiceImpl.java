@@ -40,6 +40,11 @@ public class LikeServiceImpl implements LikeService {
 	public LikeVo findLike(String userId, String targetValue) {
 		return likeDao.findLike(userId, targetValue);
 	}
+	
+	@Override
+	public LikeVo findLike(String userId, long targetValue) {
+		return likeDao.findLike(userId, targetValue);
+	}
 
 	@Override
 	public List<LikeVo> findLike() {
@@ -76,8 +81,8 @@ public class LikeServiceImpl implements LikeService {
 		return likeDao.findLikeByTargetId(targetValue);
 	}
 	
-	@Override
-	public LikeVo findLike(String userId, long targetValue) {
-		return likeDao.findLike(userId, targetValue);
-	}
+	
+	
+
+	
 }

@@ -14,7 +14,7 @@ import com.medici.arang.board.contact.command.FindContactingArtistCommand;
 import com.medici.arang.board.contact.dao.ContactDao;
 import com.medici.arang.user.command.ArtistPageCommand;
 
-public class ContactServiceImpl implements ContactService {
+public class ContactServiceImpl {
 	
 	@Autowired
 	private ContactDao contactDao;

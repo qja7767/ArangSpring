@@ -52,7 +52,7 @@ public class GalleryInsertController {
 	}
 	
 	//이미지 저장될 경로
-	private static final String SAVE_DIR = "C:\\JavaYoung\\JavaStudy\\eclipse-workspace\\arang\\src\\main\\webapp\\resources\\img\\";
+	private static final String SAVE_DIR = "C:\\PSH\\my-workSpace\\arang\\src\\main\\webapp\\resources\\img\\";
 	private static final String PATH_DIR = "/upload_img/";
 	
 	@PostMapping("gallery/gallery_upload")

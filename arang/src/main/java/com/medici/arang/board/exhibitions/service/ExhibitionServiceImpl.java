@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.medici.arang.board.exhibitions.command.FindExhibitionsCommand;
 import com.medici.arang.board.exhibitions.dao.ExhibitionDao;
 
-public class ExhibitionServiceImpl implements ExhibitionService{
+public class ExhibitionServiceImpl {
 	
 	@Autowired
 	ExhibitionDao exhibitionDao;

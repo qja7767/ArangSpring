@@ -5,15 +5,20 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.medici.arang.board.gallery.command.GalleryCommand;
-import com.medici.arang.board.gallery.command.GalleryPageCommand;
+import com.medici.arang.board.gallery.domain.GalleryVo;
+import com.medici.arang.user.command.GalleristCommend;
 
 @Service
 public interface GalleryService {
 	public void insertGallery(GalleryCommand galleryCommand);
-	GalleryCommand findAllGalleryByRepresenterNum(String num);
-	long getGalleryCount();
-	GalleryCommand findGalleryByEmail(String email);
-	List<GalleryCommand> findGalleryListByEmail(String email);
-	List<GalleryPageCommand> findMyGallery(String email);
+	/*
+	public void updateGallery(GalleryCommand galleryCommand, long code);
+	public void deleteGallery(long code);
+	public List<GalleryCommand> findAllGalleryInfo();
+	public GalleristCommend GalleristbyEmail(String email);
+	public GalleryCommand findOneGalleryInfo(long code);
+	public List<GalleryCommand> findImgPath();
+	*/
+	
 }
 

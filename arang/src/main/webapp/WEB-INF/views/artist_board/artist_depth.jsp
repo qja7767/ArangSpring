@@ -71,7 +71,7 @@
                       <c:if test="${likeNum == 2}">
                       <img class="like_img" src="/fake_resources/img/icon/like_2.png" alt="like">
 						</c:if>
-						<c:if test="${likeNum == 3}">
+						<c:if test="${likeNum != 2}">
                       <img class="like_img" src="/fake_resources/img/icon/like.png" alt="like">
 						</c:if>
                       </button>

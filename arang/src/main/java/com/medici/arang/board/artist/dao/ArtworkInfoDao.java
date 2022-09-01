@@ -52,4 +52,27 @@ public class ArtworkInfoDao {
 		}, id);
 	}
 	
+	/*
+	public List<FindArtistInfoCommand> findArtist() {
+		String sql = "SELECT a.name_kor, a.name_eng, a.ssn, a.imgPath, a.genre, b.title, "
+				+ "b.infoImgPath, b.description, a.aid FROM ArtistInfo b LEFT JOIN Artist a "
+				+ "ON a.aid = b.artistId";
+		return jdbcTemplate.query(sql, new RowMapper<FindArtistInfoCommand>() {
+			
+			public FindArtistInfoCommand mapRow(ResultSet rs, int rowNum) throws SQLException {
+				FindArtistInfoCommand artistInfo = new FindArtistInfoCommand(rs.getString("name_kor"), 
+						rs.getString("name_eng"), rs.getString("ssn"), 
+						rs.getString("imgPath"), rs.getString("genre"),
+						rs.getString("title"), rs.getString("description"),
+						rs.getString("infoImgPath"), rs.getLong("aid"));
+				return artistInfo;
+			}
+		});
+	}
+	
+	public long getArtistCount() {
+		String sql = "SELECT count(*) FROM ArtistInfo";
+		return jdbcTemplate.queryForObject(sql, Long.class);
+	}
+	*/
 }

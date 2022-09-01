@@ -38,4 +38,37 @@ public class GalleryServiceImpl implements GalleryService{
 	public List<GalleryPageCommand> findMyGallery(String email) {
 		return galleryDao.findMyGallery(email);
 	}
+
+	
+	/*
+	@Override
+	public void updateGallery(GalleryCommand galleryCommand, long gallery_code) {
+		galleryDao.updateGallery(galleryCommand, gallery_code);
+	}
+
+	@Override
+	public void deleteGallery(long gallery_code) {
+		galleryDao.deleteGallery(gallery_code);
+	}
+
+	@Override
+	public List<GalleryCommand> findAllGalleryInfo() {
+		return galleryDao.findAllGalleryInfo();
+	}
+	
+	@Override
+	public GalleristCommend GalleristbyEmail(String email) {
+		return galleryDao.GalleristbyEmail(email);
+	}
+	
+	@Override
+	public List<GalleryCommand> findImgPath() {
+		return galleryDao.findImgPath();
+	}
+	
+	@Override
+	public GalleryCommand findOneGalleryInfo(long gallery_code) {
+		return galleryDao.findOneGalleryInfo(gallery_code);
+	}
+	*/
 }

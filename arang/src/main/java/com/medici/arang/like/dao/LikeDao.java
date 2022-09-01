@@ -79,7 +79,7 @@ public class LikeDao {
 			return null;
 		}
 	}
-	
+
 	//FIND ALL
 	public List<LikeVo> findLike() {
 		String sql = "SELECT * FROM LikeTable";
